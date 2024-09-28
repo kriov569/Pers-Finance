@@ -31,6 +31,12 @@ public class SummaryServlet extends HttpServlet {
         var context = req.getServletContext();
         context.log("[SummaryServlet] doGet");
 
+        var session = req.getSession(false);
+        if (session == null) {
+            resp.getWriter().println("Not authorized");
+            return;
+        }
+
         req.getRequestDispatcher("/details").include(req, resp);
         resp.getWriter().println("Free money " + context.getAttribute("freeMoney"));
     }
